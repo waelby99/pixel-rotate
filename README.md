@@ -476,58 +476,38 @@ public class RotateImage {
 
     public static void main(String[] args) throws Exception {
 
-        BufferedImage image =
-                ImageIO.read(new File("src/input.png"));
+        BufferedImage image = ImageIO.read(new File("src/input.png"));
 
         int width = image.getWidth();
         int height = image.getHeight();
 
         if (width != height) {
-            System.out.println(
-                    "For this exact LeetCode algorithm, use a square image."
-            );
+            System.out.println("Please use a square image.");
             return;
         }
 
         int[][] pixels = new int[height][width];
 
-        // Image -> matrix
+        // Image -> int[][]
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
 
                 pixels[i][j] = image.getRGB(j, i);
             }
         }
-
-        // Same LeetCode algorithm
+        // Solution to the Leetcode algorithm
         rotate(pixels);
 
-        BufferedImage rotated =
-                new BufferedImage(
-                        width,
-                        height,
-                        BufferedImage.TYPE_INT_ARGB
-                );
+        // int[][] -> new image
+        BufferedImage rotated = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        // Matrix -> image
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-
-                rotated.setRGB(
-                        j,
-                        i,
-                        pixels[i][j]
-                );
+                rotated.setRGB(j, i, pixels[i][j]);
             }
         }
 
-        ImageIO.write(
-                rotated,
-                "png",
-                new File("rotated.png")
-        );
-
-        System.out.println("Done!");
+        ImageIO.write(rotated, "png", new File("rotated.png"));
     }
 }
 ```
